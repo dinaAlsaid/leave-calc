@@ -29,14 +29,19 @@ const OutTimeForm = () => {
     setInTime(moment(e.target.value, "HH:mm"))
   }
   return (<>
-    <div>
-      <input type="time" value={inTime.format('HH:mm')} onChange={onChangeIn} />
+    <div className='col-sm-4'>
+      <input className='form-control' type="time" value={inTime.format('HH:mm')} onChange={onChangeIn} />
     </div>
 
     <div>
       {/* <input type="time" value={outTime.format('HH:mm')} onChange={onChangeOut} /> */}
-      OUT TIME:
-      {outTime.format('HH:mm')}
+      <h2>
+        وقت الخروج
+      </h2>
+      <h3>
+
+        {outTime.format('HH:mm')}
+      </h3>
     </div>
   </>)
 }
@@ -89,16 +94,18 @@ const LeaveCalcForm = () => {
   }
 
   return (<>
-    <div>
-      <input type="time" value={inTime.format('HH:mm')} onChange={onChangeIn} />
+    <div className='col-sm-4 '>
+      <input className='form-control' type="time" value={inTime.format('HH:mm')} onChange={onChangeIn} />
     </div>
-    <div>
-      <input type="time" value={outTime.format('HH:mm')} onChange={onChangeOut} />
+    <div className='col-sm-4'>
+      <input className='form-control' type="time" value={outTime.format('HH:mm')} onChange={onChangeOut} />
     </div>
-    <div>
-      LEAVE DETAILS
-      <div>from: {leaveStart?.format('HH:mm')}</div>
-      <div>to: {leaveEnd?.format('HH:mm')}</div>
+    <div className='p-2'>
+      <h2>
+        تفاصيل المغادرة
+      </h2>
+      <div><h3>من: {leaveStart?.format('HH:mm')}</h3></div>
+      <div><h3>إلى: {leaveEnd?.format('HH:mm')}</h3></div>
 
     </div>
   </>)
@@ -107,23 +114,30 @@ const LeaveCalcForm = () => {
 
 function App() {
   const [mode, setMode] = useState(0)
+
   const changeCalcEq = (e) => {
     setMode(e.target.value)
   }
 
   return (
-    <div className="App">
-      <header>
+    <div className="App" dir='rtl'>
 
-      </header>
+      <div className='container p-4'>
+        <div className='row p-2'>
+          <div className='col-sm-8'>
 
-      <select onChange={changeCalcEq} value={mode} >
-        <option value={0}>حساب وقت الخروج</option>
-        <option value={1}>حساب مدة المغادرة</option>
-      </select>
+            <select className='form-select' onChange={changeCalcEq} value={mode}  >
+              <option value={0}>حساب وقت الخروج</option>
+              <option value={1}>حساب مدة المغادرة</option>
+            </select>
+          </div>
+        </div>
+        <div className='row p-2'>
 
-      {!mode && (<OutTimeForm />)}
-      {!!mode && (<LeaveCalcForm />)}
+          {(Number(mode) === 0) && (<OutTimeForm />)}
+          {(Number(mode) === 1) && (<LeaveCalcForm />)}
+        </div>
+      </div>
 
 
     </div>
